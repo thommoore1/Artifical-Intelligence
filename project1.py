@@ -67,7 +67,11 @@ def pop(frontier):
     return frontier.pop(index)
 
 def reconstruct_path(node):
-    
+    path = []
+    while node:
+        path.append(node.state)
+        node = node.parent
+    return path[::-1]
 
 #TODO: Complete this
 def a_star_search(start_pos, goal_pos, heuristic_type="manhattan", weight = 1.0):
