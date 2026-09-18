@@ -38,16 +38,38 @@ Directions = {
     ("DR", (1, -1), 1.41)
 }
 
+def isInGrid(pos):
+    return GridMin <= pos[0] <= GridMax and GridMin <= pos[1] <= GridMax
+
+def getActionCost(posOld, posNew):
+    if posNew in FragileCosts:
+        return FragileCosts[posNew]
+    else:
+        for direction in Directions:
+            if (posOld[0] + direction[1][0], posOld[1] + direction[1][1]) == posNew:
+                return direction[2]
+
+def getHueristic(pos, goal, heuristic_type):
+    if heuristic_type == "manhattan":
+        return get_manhattan_distance(pos, goal)
+    elif heuristic_type == "euclidean":
+        return get_euclidean_distance(pos, goal)
+
+
 
 #TODO: Complete this
 def a_star_search(start_pos, goal_pos, heuristic_type="manhattan", weight = 1.0):
-    if heuristic_type == "manhattan":
-        heuristic_func = get_manhattan_distance
-    elif heuristic_type == "euclidean":
-        heuristic_func = get_euclidean_distance
-    else:
-        raise ValueError("Invalid heuristic type. Choose 'manhattan' or 'euclidean'.")
+    print(f"=== A* Search ({heuristic_type}) ===")
 
+    hueristic = getHueristic(start_pos, goal_pos, heuristic_type)
+    start = Node(start_pos, parent=None, action=None, g=0.0, h=hueristic, w=weight)
+
+    frontier = [start]
+    reached = {start_pos: start.g}
+
+    print(f"Initial frontier: [{format_node(start)}]")
+
+    pass
     
 
 
