@@ -98,8 +98,34 @@ def a_star_search(start_pos, goal_pos, heuristic_type="manhattan", weight = 1.0)
 
         if current.state == goal_pos:
             path = reconstruct_path(current)
+            print("\nGoal reached")
+            print(f"Path: {path}")
+            print(f"Total esitimated cost (f=h+h) = {current.f:.2f}")
+            print(f"Number of node expansions: {node_expansions}")
+            return path, current.f, node_expansions
 
-    pass
+        for movement, (x, y), base_cost in Directions:
+            newState = (current.state[0] + x, current.state[1] + y)
+
+            if not isInGrid(newState):
+                continue
+
+            action_cost = getActionCost(current.state, newState)
+            g_new = current.g + action_cost
+            h_new = getHueristic(newState, goal_pos, heuristic_type)
+            f_new = g_new + weight * h_new
+
+            if newState not in reached or g_new < reached[newState]:
+                reached[newState] = g_new
+                child = Node(newState, parent=current, action=movement, g=g_new, h=h_new, w=weight)
+                frontier.append(child)
+                print(f"Added to frontier: {format_node(child)}")
+
+        frontier_sorted = sorted(frontier, key=lambda n: n.f)
+        frontier_str = ', '.join([format_node(n) for n in frontier_sorted])
+        print(f"Frontier: [{frontier_str}]")
+    print("No path found.")
+    return None, None, node_expansions
     
 
 
