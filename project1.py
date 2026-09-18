@@ -21,7 +21,7 @@ def get_manhattan_distance(pos, goal):
 #TODO: Complete this
 def get_euclidean_distance(pos, goal):
     """sqrt((x1-x2)^2 + (y1-y2)^2)"""
-
+    return math.sqrt((pos[0] - goal[0])**2 + (pos[1] - goal[1])**2)
     pass
 
 ## You may define more utility functions here
