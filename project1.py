@@ -56,7 +56,18 @@ def getHueristic(pos, goal, heuristic_type):
         return get_euclidean_distance(pos, goal)
 
 def format_node(node):
-    return f"Node(state={node.state}, g={node.g:.2f}, h={node.h:.2f}, f={node.f:.2f})"
+    parent = node.parent.state if node.parent else None
+    return f"{parent}->{node.state}({node.g:.2f}, {node.f:.2f})"
+
+def pop(frontier):
+    index = 0
+    for i in range(1, len(frontier)):
+        if frontier[i].f < frontier[index].f:
+            index = i
+    return frontier.pop(index)
+
+def reconstruct_path(node):
+    
 
 #TODO: Complete this
 def a_star_search(start_pos, goal_pos, heuristic_type="manhattan", weight = 1.0):
@@ -69,6 +80,20 @@ def a_star_search(start_pos, goal_pos, heuristic_type="manhattan", weight = 1.0)
     reached = {start_pos: start.g}
 
     print(f"Initial frontier: [{format_node(start)}]")
+
+    step = 0
+    node_expansions = 0
+
+    while frontier:
+        current = pop(frontier)
+        step += 1
+        node_expansions += 1
+
+        print(f"\nStep {step}")
+        print(f"Expanded: {format_node(current)}")
+
+        if current.state == goal_pos:
+            path = reconstruct_path(current)
 
     pass
     
