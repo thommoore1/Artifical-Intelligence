@@ -12,27 +12,43 @@ class Node:
         self.w = float(w)      # When w>1.0, A* -> Weighted A*
         self.f = self.g + self.w * self.h # total estimated cost
 
-#TODO: Compete this
 def get_manhattan_distance(pos, goal):
     """|x1-x2| + |y1-y2|"""
+    return abs(pos[0] - goal[0]) + abs(pos[1] - goal[1])
 
-    pass
-
-#TODO: Complete this
 def get_euclidean_distance(pos, goal):
     """sqrt((x1-x2)^2 + (y1-y2)^2)"""
     return math.sqrt((pos[0] - goal[0])**2 + (pos[1] - goal[1])**2)
-    pass
 
 ## You may define more utility functions here
 
+GridMin = 1
+GridMax = 5
 
+FragileCosts = {(3,3): 5, (4,2): 2, (3,4): 3.0}
+
+Directions = {
+    ("U", (0, 1), 1.0),
+    ("D", (0, -1), 1.0),
+    ("L", (-1, 0), 1.0),
+    ("R", (1, 0), 1.0),
+    ("UL", (-1, 1), 1.41),
+    ("UR", (1, 1), 1.41),
+    ("DL", (-1, -1), 1.41),
+    ("DR", (1, -1), 1.41)
+}
 
 
 #TODO: Complete this
 def a_star_search(start_pos, goal_pos, heuristic_type="manhattan", weight = 1.0):
+    if heuristic_type == "manhattan":
+        heuristic_func = get_manhattan_distance
+    elif heuristic_type == "euclidean":
+        heuristic_func = get_euclidean_distance
+    else:
+        raise ValueError("Invalid heuristic type. Choose 'manhattan' or 'euclidean'.")
 
-    pass
+    
 
 
 # Test Case (run twice and compare)
