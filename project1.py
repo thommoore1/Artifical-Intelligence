@@ -55,7 +55,8 @@ def getHueristic(pos, goal, heuristic_type):
     elif heuristic_type == "euclidean":
         return get_euclidean_distance(pos, goal)
 
-
+def format_node(node):
+    return f"Node(state={node.state}, g={node.g:.2f}, h={node.h:.2f}, f={node.f:.2f})"
 
 #TODO: Complete this
 def a_star_search(start_pos, goal_pos, heuristic_type="manhattan", weight = 1.0):
