@@ -73,7 +73,6 @@ def reconstruct_path(node):
         node = node.parent
     return path[::-1]
 
-#TODO: Complete this
 def a_star_search(start_pos, goal_pos, heuristic_type="manhattan", weight = 1.0):
     print(f"=== A* Search ({heuristic_type}) ===")
 
@@ -100,7 +99,7 @@ def a_star_search(start_pos, goal_pos, heuristic_type="manhattan", weight = 1.0)
             path = reconstruct_path(current)
             print("\nGoal reached")
             print(f"Path: {path}")
-            print(f"Total esitimated cost (f=h+h) = {current.f:.2f}")
+            print(f"Total estimated cost (f=g+h) = {current.f:.2f}")
             print(f"Number of node expansions: {node_expansions}")
             return path, current.f, node_expansions
 
